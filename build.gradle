@@ -1,0 +1,42 @@
+buildscript {
+    ext.kotlin_version = '1.2.31'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    }
+}
+
+group 'com.github.eliasjorgensen.alexa'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+mainClassName = 'com.github.eliasjorgensen.alexa.MainKt'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    // The AWS Lambda environment provides these already in the classpath
+    compileOnly 'com.amazonaws:aws-lambda-java-core:1.2.0'
+    compileOnly 'com.amazonaws:aws-lambda-java-events:1.2.0'
+
+    // https://mvnrepository.com/artifact/com.amazon.alexa/alexa-skills-kit
+    compile group: 'com.amazon.alexa', name: 'alexa-skills-kit', version: '1.8.1'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
